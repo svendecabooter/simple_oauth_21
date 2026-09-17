@@ -2,6 +2,10 @@ simple_oauth_server_metadata.well_known:
   path: '/.well-known/oauth-authorization-server'
   defaults:
     _controller: '\Drupal\simple_oauth_server_metadata\Controller\ServerMetadataController'
+    # These discovery documents are fixed at the document root by RFC 8414,
+    # RFC 9728 and OpenID Connect Discovery, so canonical URL redirects must
+    # not send clients to a language-prefixed copy of them.
+    _disable_route_normalizer: TRUE
     _title: 'OAuth 2.0 Authorization Server Metadata'
   methods: [GET]
   requirements:
@@ -15,6 +19,7 @@ simple_oauth_server_metadata.resource_metadata:
   path: '/.well-known/oauth-protected-resource'
   defaults:
     _controller: '\Drupal\simple_oauth_server_metadata\Controller\ResourceMetadataController'
+    _disable_route_normalizer: TRUE
     _title: 'OAuth 2.0 Protected Resource Metadata'
   methods: [GET]
   requirements:
@@ -28,6 +33,7 @@ simple_oauth_server_metadata.openid_configuration:
   path: '/.well-known/openid-configuration'
   defaults:
     _controller: '\Drupal\simple_oauth_server_metadata\Controller\OpenIdConfigurationController::configuration'
+    _disable_route_normalizer: TRUE
     _title: 'OpenID Connect Discovery'
   methods: [GET]
   requirements:
